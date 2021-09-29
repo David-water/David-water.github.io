@@ -13,7 +13,24 @@
 		<script id="fragment-shader" type="x-shader/x-fragment">
 			precision mediump float;
 			void main(){
-                gl_FragColor = vec4((500.0-gl_FragCoord.x)/500.0*1.0, (gl_FragCoord.x/500.0)*1.0, (gl_FragCoord.y/500.0)*1.0, 1.0);
+				gl_FragColor = vec4((500.0-gl_FragCoord.x)/500.0*1.0, (gl_FragCoord.x/500.0)*1.0, (gl_FragCoord.y/500.0)*1.0, 1.0);
+			}
+		</script>
+
+		<script id="vertex-shader-new" type="x-shader/x-vertex">
+			attribute vec4 vPosition;
+			attribute vec4 vColor;
+			varying vec4 fColor;
+			void main(){
+				gl_Position = vPosition;
+				fColor = vColor;
+			}
+		</script>
+		<script id="fragment-shader-new" type="x-shade/x-fragment">
+			precision mediump float;
+			varying vec4 fColor;
+			void main(){
+				gl_FragColor = fColor;
 			}
 		</script>
 
@@ -21,12 +38,16 @@
 		<script type="text/javascript" src="../common/glMatrix.js"></script>
 		<script type="text/javascript" src="../common/initShaders.js"></script>
 		<script type="text/javascript" src="../common/webgl-utils.js"></script>
-		<!-- 绘制三角形的JS代码 -->
-		<script type="text/javascript" src="js/triangle5.js"></script>
+		<script type="text/javascript" src="js/triangle5.js"></script><!-- 绘制三角形的JS代码 -->
+
 	</head>
 	<body>
 		<h1>Task 5 : Draw a triangle with the effect shown in the figure below, the size of the triangle is variable </h1>
+		<h2>正确画法</h2>
+		<canvas id="triangle2-canvas" style="border:none;" width="500" height="500"></canvas>
+		<h2>第一次尝试：颜色与坐标点位置对应关系做法</h2>
 		<canvas id="triangle-canvas" style="border:none;" width="500" height="500"></canvas>
+		<br><br><br>
 		<a href="../Lab1.html"> return to home page</a>
 	</body>
 </html>
