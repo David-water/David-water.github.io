@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+		<title>Lab1-4:Set the triangle and quadrilateral in task c to different colors</title>
+		<!-- 顶点着色器和片元着色器代码 -->
+		<script id="vertex-shader" type="x-shader/x-vertex">
+			attribute vec4 vPosition;
+			uniform float theta;
+			
+			void main(){
+				float u = cos( theta );
+				float v = sin( theta );
+				gl_Position.x = vPosition.x * u - vPosition.y * v;
+				gl_Position.y = vPosition.x * v + vPosition.y * u;
+				gl_Position.z = 0.0;
+				gl_Position.w = 1.0;
+			}
+		</script>
+		<script id="fragment-shader" type="x-shader/x-fragment">
+			precision mediump float;
+			void main(){
+				if(gl_FragCoord.y < 427.0 && gl_FragCoord.y>400.0){
+					gl_FragColor = vec4(0.204, 0.941, 0.98, 1.0);
+				}
+                else if(gl_FragCoord.y < 400.0 && gl_FragCoord.y>200.0 && gl_FragCoord.x < 375.0 && gl_FragCoord.x>250.0 ){
+					gl_FragColor = vec4(0.204, 0.58, 0.98, 1.0);
+				}
+                else if(gl_FragCoord.y < 200.0 && gl_FragCoord.y>50.0){
+                    gl_FragColor = vec4(0.259, 0.616, 0.67, 1.0);
+                }
+                else if(gl_FragCoord.y<50.0){
+                    gl_FragColor = vec4(0.204, 0.941, 0.98, 1.0);
+                }
+                else if((gl_FragCoord.x>375.0 && gl_FragCoord.x<465.0) || (gl_FragCoord.x<250.0 && gl_FragCoord.x>155.0)){
+                    gl_FragColor = vec4(0.259, 0.616, 0.67, 1.0);
+                }
+				else if(gl_FragCoord.x<155.0 || gl_FragCoord.x>465.0 ){
+					gl_FragColor = vec4(0.204, 0.941, 0.98, 1.0);
+				}
+                else{
+                    gl_FragColor=vec4(0.52,0.79,1.0,1.0);
+				}
+			}
+		</script>
+
+		<!-- 一组相关的JS库 -->
+		<script type="text/javascript" src="common/glMatrix.js"></script>
+		<script type="text/javascript" src="common/initShaders.js"></script>
+		<script type="text/javascript" src="common/webgl-utils.js"></script>
+		<!-- 绘制三角形的JS代码 -->
+		<script type="text/javascript" src="js/mypicture.js"></script>
+	</head>
+	<body>
+		<h1>This is my picture:</h1><br><br>
+		<canvas id="triangle-canvas" style="border:none;" width="500" height="500"></canvas>
+        
+		<fieldset>
+			<legend>交互控制</legend>
+			<button id="direction" onclick="changeDir()">改变转动方向</button><br>
+			Speed 0<input type="range" id="speedcon" min="0" max="100" value="50" step="10"> 100
+		</fieldset>
+		<br>
+		<fieldset>
+			<legend>实验0图片复现</legend>
+			<a href="test.html" style="color: #0a6ac4;font-family: 楷体;">点击查看</a>
+		</fieldset>
+
+		<br>
+        <a href="Lab3.html" style="color: #0a6ac4;font-family: 'Times New Roman', Times, serif;"> return</a>
+	</body>
+</html>
